@@ -143,20 +143,17 @@ const Dashboard: React.FC = () => {
         </div>
 
         {/* Confidence Distribution */}
-        <div className="glass-card p-6">
+        <AnimatedCard className="p-6" delay={0.2}>
           <h3 className="text-lg font-semibold mb-4">Confidence Distribution</h3>
-          <div className="h-48">
-            <ResponsiveContainer width="100%" height="100%">
-              <PieChart>
-                <Pie data={confidenceData} dataKey="count" nameKey="range" cx="50%" cy="50%" outerRadius={70} label>
-                  {confidenceData.map((entry, index) => (
-                    <Cell key={index} fill={entry.fill} />
-                  ))}
-                </Pie>
-                <Tooltip />
-              </PieChart>
-            </ResponsiveContainer>
-          </div>
+          <Chart3DPie 
+            data={confidenceData} 
+            dataKey="count" 
+            nameKey="range" 
+            height={192}
+            colors={['hsl(var(--success))', 'hsl(var(--warning))', 'hsl(var(--destructive))']}
+            innerRadius={40}
+            showLabels={false}
+          />
           <div className="flex justify-center gap-4 mt-2">
             {confidenceData.map((d) => (
               <div key={d.range} className="flex items-center gap-2 text-xs">
@@ -165,7 +162,7 @@ const Dashboard: React.FC = () => {
               </div>
             ))}
           </div>
-        </div>
+        </AnimatedCard>
       </div>
 
       {/* Savings Chart + Recent Activity */}
@@ -182,7 +179,7 @@ const Dashboard: React.FC = () => {
           />
         </AnimatedCard>
 
-        <div className="glass-card p-6">
+        <AnimatedCard className="p-6" delay={0.4}>
           <h3 className="text-lg font-semibold mb-4">Recent Activity</h3>
           <div className="space-y-3">
             {recentActivity.map((inv) => (

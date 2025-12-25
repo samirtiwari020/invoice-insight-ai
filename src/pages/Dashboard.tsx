@@ -4,6 +4,9 @@ import { KPICard } from '@/components/ui/KPICard';
 import { WorkflowFunnel } from '@/components/ui/WorkflowStages';
 import { ConfidenceBar } from '@/components/ui/ConfidenceBadge';
 import { StatusBadge } from '@/components/ui/StatusBadge';
+import { Chart3DArea, Chart3DPie } from '@/components/charts/Chart3D';
+import { AnimatedCard, AnimatedContainer, AnimatedItem } from '@/components/ui/AnimatedCard';
+import { motion } from 'framer-motion';
 import { 
   HiOutlineDocumentText,
   HiOutlineClock,
@@ -13,7 +16,6 @@ import {
   HiOutlineCheckCircle,
   HiOutlineExclamationTriangle,
 } from 'react-icons/hi2';
-import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 
 const Dashboard: React.FC = () => {
   const { invoices, dashboardMetrics, isExecutiveMode } = useInvoiceStore();
@@ -40,8 +42,16 @@ const Dashboard: React.FC = () => {
   }));
 
   return (
-    <div className="space-y-6 fade-in">
-      <div className="flex items-center justify-between">
+    <motion.div 
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      className="space-y-6"
+    >
+      <motion.div 
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="flex items-center justify-between"
+      >
         <div>
           <h1 className="text-2xl font-bold text-foreground">Dashboard</h1>
           <p className="text-muted-foreground">
@@ -49,9 +59,15 @@ const Dashboard: React.FC = () => {
           </p>
         </div>
         {isExecutiveMode && (
-          <div className="badge-primary">Executive Mode</div>
+          <motion.div 
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            className="badge-primary"
+          >
+            Executive Mode
+          </motion.div>
         )}
-      </div>
+      </motion.div>
 
       {/* KPI Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 stagger-children">
@@ -154,25 +170,17 @@ const Dashboard: React.FC = () => {
 
       {/* Savings Chart + Recent Activity */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div className="glass-card p-6">
+        <AnimatedCard className="p-6" delay={0.3}>
           <h3 className="text-lg font-semibold mb-4">Weekly Cost Savings</h3>
-          <div className="h-48">
-            <ResponsiveContainer width="100%" height="100%">
-              <AreaChart data={savingsData}>
-                <defs>
-                  <linearGradient id="savingsGradient" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.3} />
-                    <stop offset="95%" stopColor="hsl(var(--primary))" stopOpacity={0} />
-                  </linearGradient>
-                </defs>
-                <XAxis dataKey="day" axisLine={false} tickLine={false} />
-                <YAxis axisLine={false} tickLine={false} tickFormatter={(v) => `$${v}`} />
-                <Tooltip formatter={(v) => [`$${v}`, 'Savings']} />
-                <Area type="monotone" dataKey="savings" stroke="hsl(var(--primary))" fill="url(#savingsGradient)" strokeWidth={2} />
-              </AreaChart>
-            </ResponsiveContainer>
-          </div>
-        </div>
+          <Chart3DArea 
+            data={savingsData} 
+            dataKey="savings" 
+            xAxisKey="day" 
+            height={192}
+            color="hsl(var(--primary))"
+            gradientId="dashboardSavings"
+          />
+        </AnimatedCard>
 
         <div className="glass-card p-6">
           <h3 className="text-lg font-semibold mb-4">Recent Activity</h3>
@@ -195,9 +203,9 @@ const Dashboard: React.FC = () => {
               </div>
             ))}
           </div>
-        </div>
+        </AnimatedCard>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

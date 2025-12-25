@@ -11,6 +11,8 @@ import { useInvoiceStore } from '@/store/invoiceStore';
 import { useUIStore } from '@/store/uiStore';
 import { cn } from '@/lib/utils';
 import { Switch } from '@headlessui/react';
+import { ThemeToggle } from '@/components/ui/ThemeToggle';
+import { motion } from 'framer-motion';
 
 const getBreadcrumbs = (pathname: string): { label: string; path: string }[] => {
   const segments = pathname.split('/').filter(Boolean);
@@ -35,7 +37,10 @@ export const Navbar: React.FC = () => {
   const breadcrumbs = getBreadcrumbs(location.pathname);
 
   return (
-    <header 
+    <motion.header 
+      initial={{ y: -20, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.4 }}
       className={cn(
         'fixed top-0 right-0 z-30 h-16 bg-card/80 backdrop-blur-xl border-b border-border transition-all duration-300',
         sidebarOpen ? 'left-64' : 'left-20'
@@ -67,7 +72,11 @@ export const Navbar: React.FC = () => {
         <div className="flex items-center gap-4">
           {/* Executive Mode Toggle */}
           {location.pathname.includes('dashboard') && (
-            <div className="flex items-center gap-3 px-4 py-2 rounded-lg bg-muted/50">
+            <motion.div 
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              className="flex items-center gap-3 px-4 py-2 rounded-lg bg-muted/50"
+            >
               <span className="text-sm text-muted-foreground">Executive Mode</span>
               <Switch
                 checked={isExecutiveMode}
@@ -84,22 +93,33 @@ export const Navbar: React.FC = () => {
                   )}
                 />
               </Switch>
-            </div>
+            </motion.div>
           )}
 
           {/* Pending Review Badge */}
           {dashboardMetrics.pendingReview > 0 && (
-            <Link 
-              to="/review-queue"
-              className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-warning/10 text-warning text-sm font-medium hover:bg-warning/20 transition-colors"
+            <motion.div
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ type: 'spring', stiffness: 500, damping: 30 }}
             >
-              <HiOutlineBell className="w-4 h-4" />
-              <span>{dashboardMetrics.pendingReview} pending</span>
-            </Link>
+              <Link 
+                to="/review-queue"
+                className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-warning/10 text-warning text-sm font-medium hover:bg-warning/20 transition-colors"
+              >
+                <HiOutlineBell className="w-4 h-4" />
+                <span>{dashboardMetrics.pendingReview} pending</span>
+              </Link>
+            </motion.div>
           )}
 
+          {/* Theme Toggle */}
+          <ThemeToggle />
+
           {/* GitHub Link */}
-          <a
+          <motion.a
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
             href="https://github.com/hackxios"
             target="_blank"
             rel="noopener noreferrer"
@@ -107,24 +127,28 @@ export const Navbar: React.FC = () => {
             title="View on GitHub"
           >
             <FaGithub className="w-5 h-5" />
-          </a>
+          </motion.a>
 
           {/* Help */}
-          <button 
+          <motion.button 
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
             className="p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-colors"
             title="Help & Documentation"
           >
             <HiOutlineQuestionMarkCircle className="w-5 h-5" />
-          </button>
+          </motion.button>
 
           {/* Settings */}
-          <Link 
-            to="/settings"
-            className="p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-colors"
-            title="Settings"
-          >
-            <HiOutlineCog6Tooth className="w-5 h-5" />
-          </Link>
+          <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>
+            <Link 
+              to="/settings"
+              className="p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-colors block"
+              title="Settings"
+            >
+              <HiOutlineCog6Tooth className="w-5 h-5" />
+            </Link>
+          </motion.div>
 
           {/* Version Badge */}
           <span className="px-2 py-1 rounded text-xs font-mono bg-primary/10 text-primary">
@@ -132,6 +156,6 @@ export const Navbar: React.FC = () => {
           </span>
         </div>
       </div>
-    </header>
+    </motion.header>
   );
 };

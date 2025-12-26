@@ -32,9 +32,10 @@ export const Sidebar: React.FC = () => {
   return (
     <aside
       className={cn(
-        'fixed left-0 top-0 z-40 h-screen bg-primary transition-all duration-300 flex flex-col',
+        'fixed left-0 top-0 z-40 h-screen transition-all duration-300 flex flex-col',
         sidebarOpen ? 'w-64' : 'w-20'
       )}
+      style={{ backgroundColor: 'hsl(var(--sidebar-background))' }}
     >
       {/* Logo */}
       <div className="flex items-center h-16 px-4 border-b border-primary-foreground/10">

@@ -93,7 +93,7 @@
   }
 
   .dark {
-    --background: 220 25% 8%;
+    --background: 0 0% 9%;
     --foreground: 0 0% 95%;
 
     --card: 220 25% 12%;
@@ -132,14 +132,14 @@
     --gradient-hero: linear-gradient(180deg, hsl(220 25% 8%) 0%, hsl(220 25% 6%) 100%);
     --gradient-card: linear-gradient(180deg, hsl(220 25% 14%) 0%, hsl(220 25% 11%) 100%);
 
-    /* Sidebar in dark mode - Green background */
-    --sidebar-background: 160 84% 39%;
+    /* Sidebar in dark mode - Custom dark blue */
+    --sidebar-background: 220 49% 7%;
     --sidebar-foreground: 0 0% 100%;
     --sidebar-primary: 0 0% 100%;
-    --sidebar-primary-foreground: 160 84% 39%;
-    --sidebar-accent: 160 84% 33%;
+    --sidebar-primary-foreground: 220 49% 7%;
+    --sidebar-accent: 220 49% 12%;
     --sidebar-accent-foreground: 0 0% 100%;
-    --sidebar-border: 160 84% 33%;
+    --sidebar-border: 220 49% 12%;
     --sidebar-ring: 0 0% 100%;
   }
 }

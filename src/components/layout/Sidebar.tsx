@@ -1,27 +1,27 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { 
-  HiOutlineHome,
+  HiOutlineSquares2X2,
   HiOutlineCloudArrowUp,
-  HiOutlineArrowPath,
-  HiOutlineClipboardDocumentCheck,
   HiOutlineClock,
-  HiOutlineChartBar,
+  HiOutlineClipboardDocumentCheck,
+  HiOutlineChartBarSquare,
+  HiOutlineArchiveBox,
   HiOutlineCog6Tooth,
   HiOutlineChevronLeft,
   HiOutlineChevronRight,
-  HiOutlineSparkles,
+  HiOutlineDocumentText,
 } from 'react-icons/hi2';
 import { useUIStore } from '@/store/uiStore';
 import { cn } from '@/lib/utils';
 
 const navItems = [
-  { path: '/dashboard', label: 'Dashboard', icon: HiOutlineHome },
+  { path: '/dashboard', label: 'Dashboard', icon: HiOutlineSquares2X2 },
   { path: '/upload', label: 'Upload', icon: HiOutlineCloudArrowUp },
-  { path: '/processing', label: 'Processing', icon: HiOutlineArrowPath },
+  { path: '/processing', label: 'Processing Queue', icon: HiOutlineClock },
   { path: '/review-queue', label: 'Review Queue', icon: HiOutlineClipboardDocumentCheck },
-  { path: '/history', label: 'History', icon: HiOutlineClock },
-  { path: '/analytics', label: 'Analytics', icon: HiOutlineChartBar },
+  { path: '/analytics', label: 'Analytics', icon: HiOutlineChartBarSquare },
+  { path: '/history', label: 'History', icon: HiOutlineArchiveBox },
   { path: '/settings', label: 'Settings', icon: HiOutlineCog6Tooth },
 ];
 
@@ -32,21 +32,18 @@ export const Sidebar: React.FC = () => {
   return (
     <aside
       className={cn(
-        'fixed left-0 top-0 z-40 h-screen bg-sidebar transition-all duration-300 flex flex-col',
+        'fixed left-0 top-0 z-40 h-screen bg-primary transition-all duration-300 flex flex-col',
         sidebarOpen ? 'w-64' : 'w-20'
       )}
     >
       {/* Logo */}
-      <div className="flex items-center h-16 px-4 border-b border-sidebar-border">
+      <div className="flex items-center h-16 px-4 border-b border-primary-foreground/10">
         <Link to="/" className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-gradient-primary flex items-center justify-center shadow-glow">
-            <HiOutlineSparkles className="w-6 h-6 text-primary-foreground" />
+          <div className="w-10 h-10 rounded-xl bg-primary-foreground/10 flex items-center justify-center">
+            <HiOutlineDocumentText className="w-5 h-5 text-primary-foreground" />
           </div>
           {sidebarOpen && (
-            <div className="flex flex-col slide-in-left">
-              <span className="font-bold text-sidebar-foreground text-lg">InvoiceAI</span>
-              <span className="text-xs text-sidebar-foreground/60">by HackXios</span>
-            </div>
+            <span className="font-bold text-primary-foreground text-lg slide-in-left">InvoiceAI</span>
           )}
         </Link>
       </div>
@@ -69,55 +66,30 @@ export const Sidebar: React.FC = () => {
             >
               <item.icon className={cn(
                 'w-5 h-5 shrink-0 transition-colors',
-                isActive ? 'text-primary' : 'text-sidebar-foreground/70 group-hover:text-sidebar-foreground'
+                isActive ? 'text-primary-foreground' : 'text-primary-foreground/70 group-hover:text-primary-foreground'
               )} />
               {sidebarOpen && (
                 <span className={cn(
-                  'transition-colors',
-                  isActive ? 'text-primary' : 'text-sidebar-foreground/80 group-hover:text-sidebar-foreground'
+                  'transition-colors text-sm',
+                  isActive ? 'text-primary-foreground font-medium' : 'text-primary-foreground/80 group-hover:text-primary-foreground'
                 )}>
                   {item.label}
                 </span>
-              )}
-              {isActive && sidebarOpen && (
-                <span className="ml-auto w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
               )}
             </Link>
           );
         })}
       </nav>
 
-      {/* AI Status */}
-      <div className={cn(
-        'mx-3 mb-4 p-3 rounded-xl bg-sidebar-accent/50 border border-sidebar-border',
-        !sidebarOpen && 'p-2'
-      )}>
-        {sidebarOpen ? (
-          <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg bg-success/20 flex items-center justify-center">
-              <span className="w-2 h-2 rounded-full bg-success animate-pulse" />
-            </div>
-            <div className="flex-1 min-w-0">
-              <p className="text-xs font-medium text-sidebar-foreground">AI Engine Active</p>
-              <p className="text-xs text-sidebar-foreground/60 truncate">v2.1 • 99.9% uptime</p>
-            </div>
-          </div>
-        ) : (
-          <div className="flex justify-center">
-            <span className="w-3 h-3 rounded-full bg-success animate-pulse" />
-          </div>
-        )}
-      </div>
-
       {/* Collapse Toggle */}
       <button
         onClick={toggleSidebar}
-        className="absolute -right-3 top-20 w-6 h-6 rounded-full bg-sidebar border border-sidebar-border flex items-center justify-center hover:bg-sidebar-accent transition-colors shadow-md"
+        className="absolute -right-3 top-20 w-6 h-6 rounded-full bg-card border border-border flex items-center justify-center hover:bg-muted transition-colors shadow-md"
       >
         {sidebarOpen ? (
-          <HiOutlineChevronLeft className="w-4 h-4 text-sidebar-foreground" />
+          <HiOutlineChevronLeft className="w-4 h-4 text-foreground" />
         ) : (
-          <HiOutlineChevronRight className="w-4 h-4 text-sidebar-foreground" />
+          <HiOutlineChevronRight className="w-4 h-4 text-foreground" />
         )}
       </button>
     </aside>

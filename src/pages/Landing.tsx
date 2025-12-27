@@ -46,11 +46,11 @@ const Landing: React.FC = () => {
                 )}
               </button>
 
-              <Link to="/dashboard" className="text-foreground hover:text-primary transition-colors font-medium">
-                Dashboard
+              <Link to="/auth" className="text-foreground hover:text-primary transition-colors font-medium">
+                Login
               </Link>
               
-              <Link to="/upload" className="btn-gradient">
+              <Link to="/auth" className="btn-gradient">
                 Get Started
               </Link>
             </div>
@@ -107,10 +107,10 @@ const Landing: React.FC = () => {
               transition={{ delay: 0.4 }}
               className="flex items-center justify-center gap-4"
             >
-              <Link to="/upload" className="btn-gradient text-lg px-8 py-3 flex items-center gap-2">
+              <Link to="/auth" className="btn-gradient text-lg px-8 py-3 flex items-center gap-2">
                 Start Processing <HiOutlineArrowRight className="w-5 h-5" />
               </Link>
-              <Link to="/dashboard" className="btn-outline text-lg px-8 py-3">
+              <Link to="/auth" className="btn-outline text-lg px-8 py-3">
                 Live Demo
               </Link>
             </motion.div>
@@ -202,7 +202,7 @@ const Landing: React.FC = () => {
       <div className="container mx-auto px-6 py-20 text-center">
         <h2 className="text-3xl font-bold mb-4">Ready to Transform Your AP Process?</h2>
         <p className="text-muted-foreground mb-8">Start processing invoices with AI today</p>
-        <Link to="/dashboard" className="btn-gradient text-lg px-10 py-4 inline-flex items-center gap-2">
+        <Link to="/auth" className="btn-gradient text-lg px-10 py-4 inline-flex items-center gap-2">
           Launch Dashboard <HiOutlineArrowRight className="w-5 h-5" />
         </Link>
       </div>

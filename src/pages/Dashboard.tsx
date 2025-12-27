@@ -71,7 +71,7 @@ const Dashboard: React.FC = () => {
         animate={{ opacity: 1, y: 0 }}
       >
         <h1 className="text-3xl font-bold text-foreground flex items-center gap-3">
-          Welcome back, Vaibhavi! <span className="text-3xl">👋</span>
+          Welcome back, Samir! <span className="text-3xl">👋</span>
         </h1>
         <div className="flex items-center gap-6 mt-2">
           <span className="text-primary text-sm font-medium flex items-center gap-1">
